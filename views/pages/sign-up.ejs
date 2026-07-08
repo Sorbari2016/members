@@ -1,0 +1,40 @@
+<form action="/sign-up" method="post" class="auth-form">
+  <h2>Sign up</h2>
+  <div class="double-input">
+    <input
+      type="text"
+      name="firstName"
+      value="<%=formData.firstName || '' %>"
+      placeholder="* First name"
+      required
+    />
+    <input
+      type="text"
+      name="lastName"
+      value="<%=formData.lastName || '' %>"
+      placeholder="* Last name "
+      required
+    />
+  </div>
+  <input
+    type="email"
+    name="username"
+    value="<%=formData.email || '' %>"
+    placeholder="* Email"
+    required
+  />
+  <div class="double-input">
+    <input type="password" name="password" placeholder="* Password" required />
+    <input
+      type="password"
+      name="confirmPassword"
+      placeholder="* Confirm Password"
+      required
+    />
+  </div>
+  <div class="info-box">
+    <small class="message"><%=locals.message%></small>
+  </div>
+  <button type="submit">Sign up</button>
+  <a href="/login" class="auth-link"> Have an account already </a>
+</form>
