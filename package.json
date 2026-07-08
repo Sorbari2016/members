@@ -1,0 +1,22 @@
+{
+  "name": "mini-message",
+  "version": "1.0.0",
+  "description": "Mini message board is a simple message board app, created to understand the following areas in Node Js:  - Native node modules - Express js - Routes - Controllers - EJS, and Views",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "db:build": "node database/populate.js"
+  },
+  "keywords": [],
+  "author": "Clematins Nwiibee",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "pg": "^8.22.0"
+  }
+}

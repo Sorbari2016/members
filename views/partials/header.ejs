@@ -1,0 +1,140 @@
+<header class="site-header">
+    <div class="header-top container">
+        <h1 class="logo">
+            <a href="/">
+                Coteck
+            </a>
+        </h1>
+        <form
+            action="/search"
+            method="GET"
+            class="search-form"
+        >
+            <input
+                type="search"
+                name="q"
+                placeholder="Search products..."
+                aria-label="Search products"
+            >
+            <button
+                type="submit"
+                aria-label="Search"
+            >
+                <img
+                    src="/icons/search-icon.png"
+                    alt=""
+                >
+            </button>
+        </form>
+        <nav
+            class="user-nav"
+            aria-label="User Navigation"
+        >
+            <% if (user) { %>
+                <a href="/account">
+                    Hello,
+                    <%= user.first_name %>
+                </a>
+            <% } else { %>
+                <a href="/login">
+                    Sign Up / Login
+                </a>
+            <% } %>
+            <a
+                href="/cart"
+                class="cart-link"
+                aria-label="Shopping Cart"
+            >
+                <img
+                    src="/icons/cart-icon.png"
+                    alt=""
+                >
+            </a>
+        </nav>
+    </div>
+    <nav
+        class="main-nav"
+        aria-label="Primary Navigation"
+    >
+        <div class="container nav-container">
+            <div class="category-dropdown">
+                <button
+                    class="category-btn"
+                    type="button"
+                >
+                    <img
+                        src="/icons/hamburger.png"
+                        alt=""
+                    >
+                    <span>
+                        All Categories
+                    </span>
+                </button>
+                <div class="mega-menu">
+                    <aside class="category-sidebar">
+                        <ul>
+                            <% categories.forEach(category => { %>
+                                <li class="category-item">
+                                    <button
+                                        type="button"
+                                        class="category-link"
+                                    >
+                                        <span>
+                                            <%= category.name %>
+                                        </span>
+                                        <span>
+                                            ›
+                                        </span>
+                                    </button>
+                                    <section class="products-panel">
+                                        <h2>
+                                            <%= category.name %>
+                                        </h2>
+                                        <div class="products-grid">
+                                            <% category.products.forEach(product => { %>
+                                                <a
+                                                    href="/product/<%= product.slug %>"
+                                                    class="product-link"
+                                                >
+                                                    <strong>
+                                                        <%= product.name %>
+                                                    </strong>
+                                                    <span>
+                                                        View Product
+                                                    </span>
+                                                </a>
+                                            <% }) %>
+                                        </div>
+                                    </section>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="/deals">
+                        Super Deals
+                    </a>
+                </li>
+                <li>
+                    <a href="/projects">
+                        Coteck Projects
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+            <a
+                href="/shop"
+                class="shop-btn"
+            >
+                Shop Now
+            </a>
+        </div>
+    </nav>
+</header>
