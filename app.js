@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import session from "express-session";
 import passport from "passport";
+import authRouter from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -18,9 +19,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
-
-// Define salt round for hashing algorithm
-const saltRound = parseInt(process.env.SECRETSALT);
 
 // Set up a session
 app.use(
@@ -40,9 +38,7 @@ app.use(
 app.use(passport.session());
 
 // Routes
-app.get("/", (req, res) => {
-  res.render("pages/home");
-});
+app.use("/", authRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);

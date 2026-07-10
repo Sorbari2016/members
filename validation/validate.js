@@ -3,7 +3,7 @@ import { errorMessage } from "../errors/error.js";
 
 const validateUser = () => {
   return [
-    body("frstName")
+    body("firstName")
       .trim()
       .isAlpha()
       .withMessage(errorMessage.alphaErr("First name"))
@@ -14,7 +14,7 @@ const validateUser = () => {
       .isAlpha()
       .withMessage(errorMessage.alphaErr("Last name"))
       .isLength({ min: 2, max: 50 })
-      .withMessage(ErrorMessage.lengthErr("Last name", 2, 50)),
+      .withMessage(errorMessage.lengthErr("Last name", 2, 50)),
     body("username")
       .trim()
       .isEmail()
@@ -34,7 +34,7 @@ const validateUser = () => {
       .withMessage(errorMessage.atleastErr("Password", "lowercase letter"))
       .matches(/[0-9]/)
       .withMessage(errorMessage.atleastErr("Password", "number"))
-      .matches(/[@$!%*?&]/)
+      .matches(/[@$!%*?#&]/)
       .withMessage(
         errorMessage.atleastErr("Password", "special character (@$!%*?&)"),
       ),
