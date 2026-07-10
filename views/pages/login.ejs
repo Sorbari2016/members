@@ -10,6 +10,7 @@
   <input type="password" name="password" placeholder="* Password" required />
   <a href="/recover" class="auth-link"> Forget your password ? </a>
   <div class="info-box">
+    <%-include("../partials/errors") %>
     <small class="message"><%=locals.message%></small>
   </div>
   <button type="submit">Login</button>

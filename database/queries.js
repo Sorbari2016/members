@@ -1,8 +1,17 @@
 import pool from "./pool.js";
 
+// Create query method to get user by email
 async function getUserByUsername(username) {
   const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [
     username,
+  ]);
+  return rows;
+}
+
+// Create query method to get user by id
+async function getUserById(userId) {
+  const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
+    userId,
   ]);
   return rows;
 }
@@ -35,4 +44,10 @@ async function updateMemberShipStatus(userId) {
   );
 }
 
-export { insertMessage, insertUser, getUserByUsername, updateMemberShipStatus };
+export {
+  insertMessage,
+  insertUser,
+  getUserByUsername,
+  updateMemberShipStatus,
+  getUserById,
+};
