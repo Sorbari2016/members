@@ -1,0 +1,35 @@
+<header class="main-header">
+        <% if (user && membershipStatus) { %>
+                <div class="profile-btn dropdown">
+                <a class="btn btn-profile" role="button">
+                    <img src="/image/user.png" alt="profile icon">  <!-- Absolute path here for the image -->
+                    <span class="profile-name"><%= username %></span>
+                    <span class="dropdown-arrow">⏷</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile"class="dropdown-item">Profile</a></li>
+                    <li><a href="/logout"class="dropdown-item">Log out</a></li>
+                </ul>
+            </div>
+        <%} else if (user) {%>
+            <div class="profile-btn dropdown">
+                <a class="btn btn-profile" role="button">
+                    <img src="/image/user.png" alt="profile icon">  <!-- Absolute path here for the image -->
+                    <span class="profile-name"><%= username %></span>
+                    <span class="dropdown-arrow">⏷</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile"class="dropdown-item">Profile</a></li>
+                    <li><a href="/logout"class="dropdown-item">Log out</a></li>
+                </ul>
+                <a class="join-club-btn" href="/join-club" role="button">
+                    <span> Become a Member</span>
+                </a>
+        <% } else { %>
+            <div class="split-btns auth-btns">
+                <a href="/login" class="btn btn-login" role="button">Login</a>
+                <span class="divider">|</span>
+                <a href="/sig-nup" class="btn btn-signup" role="button">Sign up</a>
+            </div>
+        <% } %>
+    </header>

@@ -27,4 +27,12 @@ async function insertMessage(messageTitle, messageText, userId) {
   );
 }
 
-export { insertMessage, insertUser, getUserByUsername };
+// Create query method to update a user's membership status
+async function updateMemberShipStatus(userId) {
+  await pool.query(
+    "UPDATE users SET membership_status = 'member' WHERE id  = $1",
+    [userId],
+  );
+}
+
+export { insertMessage, insertUser, getUserByUsername, updateMemberShipStatus };

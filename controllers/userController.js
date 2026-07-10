@@ -1,4 +1,9 @@
-import { insertUser, getUserByUsername } from "../database/queries.js";
+import {
+  insertUser,
+  getUserByUsername,
+  updateMemberShipStatus,
+} from "../database/queries.js";
+import { getPassscode } from "../utilities/utility.js";
 import { validationResult, matchedData } from "express-validator";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
@@ -55,5 +60,37 @@ async function registerUser(req, res) {
   res.redirect("/");
 }
 
+// Create method to get join the club page
+async function getMembershipPage(req, res) {
+  res.render("pages/join-club", { message: "" });
+}
+
+// Create a controller to update a user's membership status
+async function registerMember(req, res) {
+  // gather errors, if any
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render("pages/join-club", {
+      message: "",
+      errors: errors.array(),
+    });
+  }
+
+  // check if passcode is correct
+  const { passcode } = matchedData(req);
+  const secretPasscode = getPassscode();
+
+  if (passcode !== secretPasscode) {
+    return res.render("pages/join-club", {
+      message: "Incorrect secret passcode",
+    });
+  }
+
+  // update user's status
+  const userId = parseInt(req.params["id"]);
+  await updateMemberShipStatus(userId);
+}
+
 // exports
-export { getSignUpPage, registerUser };
+export { getSignUpPage, registerUser, getMembershipPage, registerMember };

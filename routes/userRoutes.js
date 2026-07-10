@@ -1,7 +1,14 @@
-import { CreateUser } from "../controllers/userController.js";
-import { validateUser } from "../validation/validate.js";
 import { Router } from "express";
+import {
+  registerMember,
+  getMembershipPage,
+} from "../controllers/userController.js";
+import { validatePasscode } from "../validation/validate.js";
 
 const userRouter = Router();
 
-userRouter.post("/sign-up", validateUser, CreateUser);
+// Users defined routes
+userRouter.get("/join-club", getMembershipPage);
+userRouter.post("/:id/join-club", validatePasscode(), registerMember);
+
+export default userRouter;

@@ -44,6 +44,10 @@ class ErrorMessage {
   mismatchErr(attr) {
     return `${attr} do not match`;
   }
+
+  onlyErr(attr, feature) {
+    return `${attr} must contain only ${feature}`;
+  }
 }
 
 const errorMessage = new ErrorMessage();

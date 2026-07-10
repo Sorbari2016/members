@@ -68,4 +68,18 @@ const validateMessage = () => {
   ];
 };
 
-export { validateUser, validateMessage };
+const validatePasscode = () => {
+  return [
+    body("passcode")
+      .trim()
+      .escape()
+      .exists({ checkFalsy: true })
+      .withMessage(errorMessage.requiredErr("Passcode"))
+      .isNumeric()
+      .withMessage(errorMessage.onlyErr("Passcode", "numbers"))
+      .isLength({ min: 4, max: 6 })
+      .withMessage(errorMessage.lengthErr("Passcode", 4, 6)),
+  ];
+};
+
+export { validateUser, validateMessage, validatePasscode };
