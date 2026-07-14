@@ -2,6 +2,7 @@ import {
   insertUser,
   getUserByUsername,
   updateMemberShipStatus,
+  getAllMessages,
 } from "../database/queries.js";
 import { getPassscode } from "../utilities/utility.js";
 import "../authentication/auth.js";
@@ -16,8 +17,12 @@ dotenv.config();
 const saltRound = parseInt(process.env.SECRETSALT);
 
 // Create a controller to get the sign-up page
-function getSignUpPage(req, res) {
-  res.render("pages/register", { formData: {}, messages: "" });
+function getRegisterPage(req, res) {
+  res.render("pages/forms/register", {
+    title: "Register",
+    formData: {},
+    messages: "",
+  });
 }
 
 // Create controller to register a user
@@ -25,7 +30,7 @@ async function registerUser(req, res) {
   const errors = validationResult(req);
   try {
     if (!errors.isEmpty()) {
-      return res.status(400).render("pages/register", {
+      return res.status(400).render("pages/forms/register", {
         formData: {
           title: "Login Page",
           firstName: req.body.firstName,
@@ -47,7 +52,7 @@ async function registerUser(req, res) {
     // ** matching passwords (password & confirm password) handled by validationResult
 
     if (result.length > 0) {
-      return res.render("pages/register", {
+      return res.render("pages/forms/register", {
         message: "User already exists. Try logging in.",
         formData: {},
       });
@@ -67,7 +72,7 @@ async function registerUser(req, res) {
 
 // Create method to get join the club page
 async function getMembershipPage(req, res) {
-  res.render("pages/join-club", { message: "" });
+  res.render("pages/forms/join-club", { message: "" });
 }
 
 // Create a controller to update a user's membership status
@@ -76,7 +81,7 @@ async function registerMember(req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).render("pages/join-club", {
+    return res.status(400).render("pages/forms/join-club", {
       message: "",
       errors: errors.array(),
     });
@@ -87,7 +92,7 @@ async function registerMember(req, res) {
   const secretPasscode = getPassscode();
 
   if (passcode !== secretPasscode) {
-    return res.render("pages/join-club", {
+    return res.render("pages/forms/join-club", {
       message: "Incorrect secret passcode",
     });
   }
@@ -98,15 +103,16 @@ async function registerMember(req, res) {
 }
 
 // Create controller to get login page
-function getLoginPage(req, res) {
-  res.render("pages/login", {
+async function getLoginPage(req, res) {
+  res.render("pages/forms/login", {
+    title: "Login",
     formData: {},
     message: "",
   });
 }
 
 // Create controller to login users
-function loginUser(req, res, next) {
+async function loginUser(req, res, next) {
   passport.authenticate("local", (err, user, info) => {
     // check if there's a system or db error
     if (err) {
@@ -115,7 +121,8 @@ function loginUser(req, res, next) {
 
     // check if auth failed (wrong password or user not available)
     if (!user) {
-      return res.status(401).render("pages/login", {
+      return res.status(401).render("pages/forms/login", {
+        title: "Login",
         formData: { username: req.body.username },
         message: info.message || "Invalid Email address or password",
       });
@@ -135,7 +142,7 @@ function loginUser(req, res, next) {
 
 // exports
 export {
-  getSignUpPage,
+  getRegisterPage,
   registerUser,
   getMembershipPage,
   registerMember,

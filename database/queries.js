@@ -25,6 +25,19 @@ async function insertUser(firstName, lastName, email, password) {
   );
 }
 
+// Create a query method to get a message by its id
+async function getMessageById(messageId) {
+  const { rows } = await pool.query(
+    `
+    SELECT * 
+    FROM messages
+    WHERE message_id = $1
+    `,
+    [messageId],
+  );
+  return rows;
+}
+
 // Create a method to add a message
 async function insertMessage(messageTitle, messageText, userId) {
   await pool.query(
@@ -44,10 +57,17 @@ async function updateMemberShipStatus(userId) {
   );
 }
 
+// Create query method to get all messages
+async function getAllMessages() {
+  const { rows } = await pool.query("SELECT * FROM messages;");
+  return rows;
+}
+
 export {
   insertMessage,
   insertUser,
   getUserByUsername,
   updateMemberShipStatus,
   getUserById,
+  getAllMessages,
 };

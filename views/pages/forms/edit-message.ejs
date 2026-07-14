@@ -1,0 +1,25 @@
+<%-include("../../partials/head") %>
+<form method="POST" action="/messages">
+  <h1>Edit message</h1>
+  <div class="form-group">
+    <input
+      type="text"
+      name="messageTitle"
+      value="<%=formData.messageTitle %>"
+      id="m-title"
+      placeholder="Title"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <textarea name="messageBody" id="m-body"></textarea>
+  </div>
+  <div class="info-box">
+    <%-include("../partials/errors") %>
+    <small class="message"><%=locals.message%></small>
+  </div>
+  <div class="form-actions">
+    <button type="submit"><%=submitText %></button>
+    <a href="/" class="btn btn-cancel">Go back</a>
+  </div>
+</form>

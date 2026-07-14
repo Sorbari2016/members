@@ -1,0 +1,56 @@
+<article class="message-card">
+  <!-- Card Header -->
+  <div class="message-header">
+    <h4 class="message-title"><%= message.message_title %></h4>
+    <% if (isMember) { %>
+      <span class="message-date"><%= message.created_at.toDateString() %></span>
+    <% } %>
+  </div>
+
+  <!-- Card Body -->
+  <div class="message-body">
+    <p><%= message.message_body %></p>
+  </div>
+
+  <!-- Card Footer -->
+  <%
+    // check ownership status 
+    const isOwner = isLoggedIn &&  message.user_id === user.id;
+  %>
+  
+  <% if (isMember || isAdmin || isOwner) { %>
+    <div class="message-footer">
+      
+      <% if (isMember || isAdmin) { %>
+        <div class="message-info">
+          <span class="message-author"><%=username %></span>
+          
+          <% if (isAdmin) { %>
+            <img src="/icons/admin-badge.png" alt="admin icon" />
+          <% } else { %> 
+            <label class="admin-toggle">
+              <span>Make admin</span>
+              <input type="checkbox" name="makeAdmin" id="makeAdmin" />
+            </label>
+          <% } %>
+        </div> 
+      <% } %>
+
+      <% if (isOwner) { %> 
+        <div class="message-actions">
+          <a href="/<%= message.message_id %>/edit" class="btn-icon">
+            <img src="/icons/edit-icon.png" alt="Edit"  style="height: 50px;width: 50px;"/>
+          </a>
+          <% if (isAdmin) { %>
+            <form action="/<%= message.message_id %>/delete" method="POST">
+              <button class="btn-icon" type="submit">
+                <img src="/icons/delete-icon.png" alt="Delete" />
+              </button>
+            </form>
+          <% } %>
+        </div>
+      <% } %>
+
+    </div> 
+  <% } %>
+</article>

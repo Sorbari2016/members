@@ -1,0 +1,20 @@
+<main>
+    <% if (isLoggedIn) { %>
+        <div class="new-message">
+            <a href="/messages/new" class="btn btn-add">Create Message</a>
+        </div>
+    <% } %>
+        
+    <% if (locals.messages && messages.length > 0) { %>
+        <% // Check if user is admin
+         const isAdmin = isMember && user.is_admin 
+        %>
+
+        <% messages.forEach(message => { %>
+            <%-include("./message-card", { message, isAdmin, username}) %>
+
+    <% }) %>
+<% } else { %>
+    <p class="empty-state">No messages yet.</p>
+<% } %>
+</main>

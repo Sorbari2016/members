@@ -3,12 +3,30 @@
 
 <%-include("../partials/head.ejs", {title: "Homepage"}) %>
 
+<% // store user logged in, && membership status 
+    const isLoggedIn = !!user; 
+    const isMember = isLoggedIn && user.membership_status === 'member'; 
+    const isAdmin = isMember && user.is_admin;
+
+    // create a method to make names proper case
+     const toTitleCase = (str) => {
+        return str.replace(
+        /\w\S*/g,
+        text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+        );
+    };
+
+    // create username from first and last names
+    const username = 
+            user ? toTitleCase(user.first_name) + " " + toTitleCase(user.last_name) :  "";
+        
+%>
+
 </body>
-<h1>This is the Homepage</h1>
 
-<%-include("../partials/header") %>
+<%-include("../partials/header", {username, isLoggedIn, isMember}) %>
 
-<%-include("../partials/main") %>
+<%-include("../partials/main", {user, username, isLoggedIn, isMember, messages}) %>
 
 <%-include("../partials/footer") %>
 

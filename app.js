@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import session from "express-session";
 import passport from "passport";
-import authRouter from "./routes/authRoutes.js";
+import homeRouter from "./routes/homeRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
 dotenv.config();
@@ -39,7 +39,7 @@ app.use(
 app.use(passport.session());
 
 // Routes
-app.use("/", authRouter);
+app.use("/", homeRouter);
 app.use("/users", userRouter);
 
 app.use((err, req, res, next) => {
