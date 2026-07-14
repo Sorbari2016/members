@@ -140,6 +140,16 @@ async function loginUser(req, res, next) {
   })(req, res, next); // invoke middleware function
 }
 
+// Create a controller to log out user
+function logoutUser(req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}
+
 // exports
 export {
   getRegisterPage,
@@ -148,4 +158,5 @@ export {
   registerMember,
   getLoginPage,
   loginUser,
+  logoutUser,
 };
