@@ -7,6 +7,8 @@ import passport from "passport";
 import homeRouter from "./routes/homeRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoutes.js";
+import { RedisStore } from "connect-redis";
+import { createClient } from "redis";
 
 dotenv.config();
 
@@ -22,9 +24,27 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
+// Create a redis client
+const redisClient = createClient({
+  url: "redis://localhost:6379",
+});
+
+redisClient.on("error", (err) => {
+  console.log("Redis Error:", err);
+});
+
+redisClient.connect().catch(console.error);
+
+// Create a redis store
+const redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "session:",
+});
+
 // Set up a session
 app.use(
   session({
+    store: redisStore, // add a store property
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
