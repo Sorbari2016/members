@@ -23,11 +23,10 @@
       
       <% if (isMember || isAdmin) { %>
         <div class="message-info">
-          <span class="message-author"><%=username %></span>
+          <span class="message-author"><%=message.author %></span>
           
           <% if (isAdmin) { %>
-            <img src="/icons/admin-badge.png" alt="admin icon" />
-          <% } else { %> 
+            <img src="/icons/admin-badge.png" alt="admin icon" /> 
             <label class="admin-toggle">
               <span>Make admin</span>
               <input type="checkbox" name="makeAdmin" id="makeAdmin" />

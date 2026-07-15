@@ -1,7 +1,6 @@
 import {
   insertUser,
   getUserByUsername,
-  updateMemberShipStatus,
   getAllMessages,
 } from "../database/queries.js";
 import { getPassscode } from "../utilities/utility.js";
@@ -70,38 +69,6 @@ async function registerUser(req, res) {
   }
 }
 
-// Create method to get join the club page
-async function getMembershipPage(req, res) {
-  res.render("pages/forms/join-club", { message: "" });
-}
-
-// Create a controller to update a user's membership status
-async function registerMember(req, res) {
-  // gather errors, if any
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).render("pages/forms/join-club", {
-      message: "",
-      errors: errors.array(),
-    });
-  }
-
-  // check if passcode is correct
-  const { passcode } = matchedData(req);
-  const secretPasscode = getPassscode();
-
-  if (passcode !== secretPasscode) {
-    return res.render("pages/forms/join-club", {
-      message: "Incorrect secret passcode",
-    });
-  }
-
-  // update user's status
-  const userId = parseInt(req.params["id"]);
-  await updateMemberShipStatus(userId);
-}
-
 // Create controller to get login page
 async function getLoginPage(req, res) {
   res.render("pages/forms/login", {
@@ -151,12 +118,4 @@ function logoutUser(req, res, next) {
 }
 
 // exports
-export {
-  getRegisterPage,
-  registerUser,
-  getMembershipPage,
-  registerMember,
-  getLoginPage,
-  loginUser,
-  logoutUser,
-};
+export { getRegisterPage, registerUser, getLoginPage, loginUser, logoutUser };

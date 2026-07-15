@@ -37,7 +37,11 @@ async function updateMemberShipStatus(userId) {
 
 // Create query method to get all messages
 async function getAllMessages() {
-  const { rows } = await pool.query("SELECT * FROM messages;");
+  const { rows } = await pool.query(`
+    SELECT m.*, CONCAT(u.first_name, ' ',u.last_name) AS author 
+    FROM messages AS m
+    JOIN users AS u ON id = m.user_id
+    `);
   return rows;
 }
 
