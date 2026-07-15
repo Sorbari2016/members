@@ -25,17 +25,6 @@ async function insertUser(firstName, lastName, email, password) {
   );
 }
 
-// Create a method to add a message
-async function insertMessage(messageTitle, messageText, userId) {
-  await pool.query(
-    `
-    INSERT INTO messages (message_title, message_body
-    VALUES($1, $2, $3)
-    `,
-    [messageText, messageText, userId],
-  );
-}
-
 // Create query method to update a user's membership status
 async function updateMemberShipStatus(userId) {
   await pool.query(
@@ -43,6 +32,8 @@ async function updateMemberShipStatus(userId) {
     [userId],
   );
 }
+
+// Message Queriess
 
 // Create query method to get all messages
 async function getAllMessages() {
@@ -63,6 +54,28 @@ async function getMessageById(messageId) {
   return rows[0];
 }
 
+// Create a method to add a message
+async function insertMessage(messageTitle, messageText, userId) {
+  await pool.query(
+    `
+    INSERT INTO messages (message_title, message_body, user_id)
+    VALUES($1, $2, $3)
+    `,
+    [messageTitle, messageText, userId],
+  );
+}
+
+// Create a query method to update a message
+async function updateMessageById(messageTitle, messageText, messageId) {
+  await pool.query(
+    `UPDATE messages SET message_title = $1, 
+     message_body = $2
+     WHERE message_id = $3
+    `,
+    [messageTitle, messageText, messageId],
+  );
+}
+
 export {
   insertMessage,
   insertUser,
@@ -71,4 +84,5 @@ export {
   getUserById,
   getAllMessages,
   getMessageById,
+  updateMessageById,
 };

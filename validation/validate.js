@@ -58,13 +58,11 @@ const validateMessage = () => {
       .notEmpty()
       .withMessage(errorMessage.requiredErr("title"))
       .isLength({ max: 255 })
-      .withMessage(errorMessage.lengthMaxErr("Title", 255))
-      .escape(),
+      .withMessage(errorMessage.lengthMaxErr("Title", 255)),
     body("messageBody")
       .trim()
       .isLength({ max: 500 })
-      .withMessage(errorMessage.lengthMaxErr("Message", 500))
-      .escape(),
+      .withMessage(errorMessage.lengthMaxErr("Message", 500)), // remove .escape(), parameterized sql ($1, etc) will help here
   ];
 };
 

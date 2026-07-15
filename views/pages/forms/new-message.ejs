@@ -17,10 +17,7 @@
       placeholder="Type your message here..."
     ></textarea>
   </div>
-  <div class="info-box">
-    <%-include("../../partials/errors") %>
-    <small class="message"><%=locals.errorMessage%></small>
-  </div>
+  <div class="info-box"><%-include("../../partials/errors") %></div>
   <div class="form-actions">
     <button type="submit">Send message</button>
     <a href="/" class="btn btn-cancel">Go back</a>
