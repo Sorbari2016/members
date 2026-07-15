@@ -1,11 +1,11 @@
 <%-include("../../partials/head") %>
-<form method="POST" action="/messages">
+<form method="POST" action="/messages/<%=message.message_id%>/edit">
   <h1>Edit message</h1>
   <div class="form-group">
     <input
       type="text"
       name="messageTitle"
-      value="<%=formData.messageTitle %>"
+      value="<%=message.message_title %>"
       id="m-title"
       placeholder="Title"
       required
@@ -15,11 +15,16 @@
     <textarea name="messageBody" id="m-body"></textarea>
   </div>
   <div class="info-box">
-    <%-include("../partials/errors") %>
-    <small class="message"><%=locals.message%></small>
+    <%-include("../../partials/errors") %>
+    <small class="message"><%=locals.errorMessage%></small>
   </div>
   <div class="form-actions">
-    <button type="submit"><%=submitText %></button>
+    <button type="submit">Save changes</button>
     <a href="/" class="btn btn-cancel">Go back</a>
   </div>
 </form>
+
+<script>
+  // Manually add the message body, textarea doesnt have a value attribute
+  document.getElementById("m-body").value = "<%=message.message_body %>";
+</script>

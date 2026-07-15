@@ -6,6 +6,7 @@ import session from "express-session";
 import passport from "passport";
 import homeRouter from "./routes/homeRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import messageRouter from "./routes/messageRoutes.js";
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use(passport.session());
 // Routes
 app.use("/", homeRouter);
 app.use("/users", userRouter);
+app.use("/messages", messageRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);

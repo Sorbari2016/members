@@ -38,11 +38,11 @@
 
       <% if (isOwner) { %> 
         <div class="message-actions">
-          <a href="/<%= message.message_id %>/edit" class="btn-icon">
-            <img src="/icons/edit-icon.png" alt="Edit"  style="height: 50px;width: 50px;"/>
+          <a href="/messages/<%= message.message_id %>/edit" class="btn-edit">
+            <img src="/icons/edit-icon.png" alt="Edit"  class="btn-icon" style="height: 50px;width: 50px;"/>
           </a>
           <% if (isAdmin) { %>
-            <form action="/<%= message.message_id %>/delete" method="POST">
+            <form action="/messages/<%= message.message_id %>/delete" method="POST">
               <button class="btn-icon" type="submit">
                 <img src="/icons/delete-icon.png" alt="Delete" />
               </button>

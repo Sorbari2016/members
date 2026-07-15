@@ -21,7 +21,7 @@ function getRegisterPage(req, res) {
   res.render("pages/forms/register", {
     title: "Register",
     formData: {},
-    messages: "",
+    message: "",
   });
 }
 
