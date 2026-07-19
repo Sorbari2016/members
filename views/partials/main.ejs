@@ -6,12 +6,13 @@
     <% } %>
         
     <% if (locals.messages && messages.length > 0) { %>
-        <% // Check if user is admin
-         const isAdmin = isMember && user.is_admin 
+        <% 
+            // check if user is admin
+            const isAdmin = isMember && user.is_admin;  
         %>
 
         <% messages.forEach(message => { %>
-            <%-include("./message-card", { message, isAdmin}) %>
+            <%-include("./message-card", { message, isAdmin, isMember}) %>
 
     <% }) %>
 <% } else { %>

@@ -17,39 +17,38 @@
     // check ownership status 
     const isOwner = isLoggedIn &&  message.user_id === user.id;
   %>
-  
-  <% if (isMember || isAdmin || isOwner) { %>
-    <div class="message-footer">
-      
-      <% if (isMember || isAdmin) { %>
-        <div class="message-info">
-          <span class="message-author"><%=message.author %></span>
+  <% if (isLoggedIn) { %>
+  <div class="message-footer">
+      <% if (isMember) { %>
+          <div class="message-info">
+              <span class="message-author"><%= message.author %></span>
+              
+              <% if (isAdmin && message.is_admin) { %>
+                  <img src="/icons/admin-badge.png" alt="admin icon" style="height: 50px; width: 50px;"/>
+              <% } else if (isMember && message.membership_status === 'member') { %>     
+                  <label class="admin-toggle">
+                      <span>Make admin</span>
+                      <input type="checkbox" name="makeAdmin" id="makeAdmin" />
+                  </label>
+              <% } %>   
+          </div> 
+      <% } %>
+
+      <div class="message-actions">
+          <% if (isOwner) { %>
+              <a href="/messages/<%= message.message_id %>/edit" class="btn-edit">
+                  <img src="/icons/edit-icon.png" alt="Edit" class="btn-icon" style="height: 50px; width: 50px;"/>
+              </a>
+          <% } %>
           
           <% if (isAdmin) { %>
-            <img src="/icons/admin-badge.png" alt="admin icon" /> 
-            <label class="admin-toggle">
-              <span>Make admin</span>
-              <input type="checkbox" name="makeAdmin" id="makeAdmin" />
-            </label>
+             <form action="/messages/<%= message.message_id %>/delete" method="POST">
+                    <button class="btn-icon" type="submit">
+                      <img src="/icons/delete-icon.png" alt="Delete" style="height: 50px; width: 50px;"/>
+                    </button>
+              </form>
           <% } %>
-        </div> 
-      <% } %>
-
-      <% if (isOwner) { %> 
-        <div class="message-actions">
-          <a href="/messages/<%= message.message_id %>/edit" class="btn-edit">
-            <img src="/icons/edit-icon.png" alt="Edit"  class="btn-icon" style="height: 50px;width: 50px;"/>
-          </a>
-          <% if (isAdmin) { %>
-            <form action="/messages/<%= message.message_id %>/delete" method="POST">
-              <button class="btn-icon" type="submit">
-                <img src="/icons/delete-icon.png" alt="Delete" />
-              </button>
-            </form>
-          <% } %>
-        </div>
-      <% } %>
-
-    </div> 
-  <% } %>
+      </div>
+  </div> 
+<% } %>
 </article>
