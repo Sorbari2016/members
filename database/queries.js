@@ -87,6 +87,10 @@ async function updateMessageById(messageTitle, messageText, messageId) {
   );
 }
 
+async function removeMessage(messageId) {
+  await pool.query("DELETE FROM messages WHERE message_id = $1", [messageId]);
+}
+
 export {
   insertMessage,
   insertUser,
@@ -97,4 +101,5 @@ export {
   getMessageById,
   updateMessageById,
   updateAdminStatus,
+  removeMessage,
 };

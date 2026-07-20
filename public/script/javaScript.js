@@ -17,3 +17,21 @@ checkboxes.forEach((checkbox) => {
     }
   });
 });
+
+// Add event listeners to the delete forms
+const deleteForms = [...document.querySelectorAll('form[action^="/messages"]')];
+
+deleteForms.forEach((form) => {
+  form.addEventListener("submit", (e) => {
+    // prevent form from submiting
+    e.preventDefault();
+
+    // Create a confirmation alert
+    const confirmed = confirm("Are you sure you want to delete this message?");
+
+    // Submit form manually, if confirmed
+    if (confirmed) {
+      form.submit();
+    }
+  });
+});

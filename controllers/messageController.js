@@ -3,6 +3,7 @@ import {
   getUserById,
   insertMessage,
   updateMessageById,
+  removeMessage,
 } from "../database/queries.js";
 import { CustomNotFoundError, errorMessage } from "../errors/error.js";
 import { validationResult, matchedData } from "express-validator";
@@ -98,4 +99,19 @@ async function updateMessage(req, res) {
   res.redirect("/");
 }
 
-export { getNewMessage, getEditMessage, createMessage, updateMessage };
+// Create controller to delete a message
+async function deleteMessage(req, res) {
+  const messageId = parseInt(req.params.messageId);
+
+  await removeMessage(messageId);
+
+  res.redirect("/");
+}
+
+export {
+  getNewMessage,
+  getEditMessage,
+  createMessage,
+  updateMessage,
+  deleteMessage,
+};
