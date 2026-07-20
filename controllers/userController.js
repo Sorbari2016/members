@@ -3,6 +3,7 @@ import {
   getUserByUsername,
   getAllMessages,
   getUserById,
+  modifyUser,
 } from "../database/queries.js";
 import { getPassscode } from "../utilities/utility.js";
 import "../authentication/auth.js";
@@ -135,6 +136,48 @@ async function getProfile(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  // ensure user is auth
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+
+  // gather form data error
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render("pages/forms/profile", {
+      title: "Profile Page",
+      user: req.user,
+      errors: errors.array(),
+    });
+  }
+
+  try {
+    // get user id, and validated form data
+    const userId = req.user.id;
+    const { firstName, lastName, username } = matchedData(req);
+
+    // store updated data
+    const updatedData = {
+      first_name: firstName ?? user.first_name,
+      last_name: lastName ?? user.last_name,
+      email: username ?? user.email,
+    };
+
+    //update user
+    await modifyUser(
+      userId,
+      updatedData.first_name,
+      updatedData.last_name,
+      updatedData.email,
+    );
+    res.redirect("/");
+  } catch (error) {
+    console.error("Database error: ", error);
+  }
+}
+
 // exports
 export {
   getRegisterPage,
@@ -143,4 +186,5 @@ export {
   loginUser,
   logoutUser,
   getProfile,
+  updateUser,
 };

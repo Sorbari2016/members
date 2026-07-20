@@ -25,6 +25,20 @@ async function insertUser(firstName, lastName, email, password) {
   );
 }
 
+// Create query method to update a user details
+async function modifyUser(userId, firstName, lastName, email) {
+  await pool.query(
+    `
+    UPDATE users
+    SET first_name = $1, 
+        last_name = $2, 
+        email = $3
+    WHERE id = $4
+    `,
+    [firstName, lastName, email, userId],
+  );
+}
+
 // Create query method to update a user's membership status
 async function updateMemberShipStatus(userId) {
   await pool.query(
@@ -102,4 +116,5 @@ export {
   updateMessageById,
   updateAdminStatus,
   removeMessage,
+  modifyUser,
 };

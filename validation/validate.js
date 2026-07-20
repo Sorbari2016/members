@@ -1,27 +1,32 @@
 import { body } from "express-validator";
 import { errorMessage } from "../errors/error.js";
 
+// Separate the non-password fields
+const profilevaliation = [
+  body("firstName")
+    .trim()
+    .isAlpha()
+    .withMessage(errorMessage.alphaErr("First name"))
+    .isLength({ min: 2, max: 50 })
+    .withMessage(errorMessage.lengthErr("First name", 2, 50)), // aligns with db constraint
+  body("lastName")
+    .trim()
+    .isAlpha()
+    .withMessage(errorMessage.alphaErr("Last name"))
+    .isLength({ min: 2, max: 50 })
+    .withMessage(errorMessage.lengthErr("Last name", 2, 50)),
+  body("username")
+    .trim()
+    .isEmail()
+    .withMessage(errorMessage.emailErr())
+    .notEmpty()
+    .withMessage(errorMessage.requiredErr("Email"))
+    .normalizeEmail(),
+];
+
 const validateUser = () => {
   return [
-    body("firstName")
-      .trim()
-      .isAlpha()
-      .withMessage(errorMessage.alphaErr("First name"))
-      .isLength({ min: 2, max: 50 })
-      .withMessage(errorMessage.lengthErr("First name", 2, 50)), // aligns with db constraint
-    body("lastName")
-      .trim()
-      .isAlpha()
-      .withMessage(errorMessage.alphaErr("Last name"))
-      .isLength({ min: 2, max: 50 })
-      .withMessage(errorMessage.lengthErr("Last name", 2, 50)),
-    body("username")
-      .trim()
-      .isEmail()
-      .withMessage(errorMessage.emailErr())
-      .notEmpty()
-      .withMessage(errorMessage.requiredErr("Email"))
-      .normalizeEmail(),
+    ...profilevaliation,
     body("password")
       .trim()
       .notEmpty()
@@ -49,6 +54,10 @@ const validateUser = () => {
         return true;
       }),
   ];
+};
+
+const validateProfile = () => {
+  return profilevaliation;
 };
 
 const validateMessage = () => {
@@ -80,4 +89,4 @@ const validatePasscode = () => {
   ];
 };
 
-export { validateUser, validateMessage, validatePasscode };
+export { validateUser, validateMessage, validatePasscode, validateProfile };

@@ -6,8 +6,9 @@ import {
   loginUser,
   logoutUser,
   getProfile,
+  updateUser,
 } from "../controllers/userController.js";
-import { validateUser } from "../validation/validate.js";
+import { validateProfile, validateUser } from "../validation/validate.js";
 import { Router } from "express";
 
 const homeRouter = Router();
@@ -19,5 +20,6 @@ homeRouter.get("/login", getLoginPage);
 homeRouter.post("/login", validateUser(), loginUser);
 homeRouter.get("/logout", logoutUser);
 homeRouter.get("/profile", getProfile);
+homeRouter.post("/profile", validateProfile(), updateUser);
 
 export default homeRouter;
