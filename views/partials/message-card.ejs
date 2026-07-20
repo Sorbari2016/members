@@ -25,11 +25,16 @@
               
               <% if (isAdmin && message.is_admin) { %>
                   <img src="/icons/admin-badge.png" alt="admin icon" style="height: 50px; width: 50px;"/>
-              <% } else if (isMember && message.membership_status === 'member') { %>     
+              <% } else if (isAdmin && message.membership_status === 'member') { %> 
+                <form action="/users/<%=message.user_id %>/make-admin" id="makeAdminForm" method="post">    
                   <label class="admin-toggle">
                       <span>Make admin</span>
-                      <input type="checkbox" name="makeAdmin" id="makeAdmin" />
+                      <input 
+                         type="checkbox" 
+                         name="adminPasscode" 
+                         id="adminPasscode" />
                   </label>
+                </form>
               <% } %>   
           </div> 
       <% } %>

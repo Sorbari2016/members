@@ -1,4 +1,7 @@
-import { updateMemberShipStatus } from "../database/queries.js";
+import {
+  updateMemberShipStatus,
+  updateAdminStatus,
+} from "../database/queries.js";
 import { validationResult, matchedData } from "express-validator";
 import { getPassscode } from "../utilities/utility.js";
 
@@ -41,4 +44,15 @@ async function registerMember(req, res) {
   res.redirect("/");
 }
 
-export { getMembershipPage, registerMember };
+async function makeAdmin(req, res) {
+  const shouldBeAdmin = req.body.adminPasscode;
+  const userId = parseInt(req.params.id);
+
+  if (shouldBeAdmin === "on") {
+    await updateAdminStatus(userId);
+  }
+
+  res.redirect("/");
+}
+
+export { getMembershipPage, registerMember, makeAdmin };

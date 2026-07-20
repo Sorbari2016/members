@@ -33,6 +33,10 @@ async function updateMemberShipStatus(userId) {
   );
 }
 
+async function updateAdminStatus(userId) {
+  await pool.query("UPDATE users SET is_admin = TRUE WHERE id = $1", [userId]);
+}
+
 // Message Queriess
 
 // Create query method to get all messages
@@ -92,4 +96,5 @@ export {
   getAllMessages,
   getMessageById,
   updateMessageById,
+  updateAdminStatus,
 };

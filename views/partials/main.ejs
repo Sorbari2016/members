@@ -12,7 +12,7 @@
         %>
 
         <% messages.forEach(message => { %>
-            <%-include("./message-card", { message, isAdmin, isMember}) %>
+            <%-include("./message-card", { message, isAdmin, isMember, user}) %>
 
     <% }) %>
 <% } else { %>
