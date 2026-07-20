@@ -2,6 +2,7 @@ import {
   insertUser,
   getUserByUsername,
   getAllMessages,
+  getUserById,
 } from "../database/queries.js";
 import { getPassscode } from "../utilities/utility.js";
 import "../authentication/auth.js";
@@ -117,5 +118,29 @@ function logoutUser(req, res, next) {
   });
 }
 
+async function getProfile(req, res) {
+  // ensure the user is auth by passport
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+
+  try {
+    // get user
+    const user = await getUserById(req.user.id);
+    console.log(user);
+
+    res.render("pages/forms/profile", { user, title: "Profile Page" });
+  } catch (error) {
+    console.error(`Database error`, error);
+  }
+}
+
 // exports
-export { getRegisterPage, registerUser, getLoginPage, loginUser, logoutUser };
+export {
+  getRegisterPage,
+  registerUser,
+  getLoginPage,
+  loginUser,
+  logoutUser,
+  getProfile,
+};

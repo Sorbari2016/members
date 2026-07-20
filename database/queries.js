@@ -13,7 +13,7 @@ async function getUserById(userId) {
   const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
     userId,
   ]);
-  return rows;
+  return rows[0];
 }
 
 // Create method to add a user to the db

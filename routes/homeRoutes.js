@@ -5,6 +5,7 @@ import {
   getLoginPage,
   loginUser,
   logoutUser,
+  getProfile,
 } from "../controllers/userController.js";
 import { validateUser } from "../validation/validate.js";
 import { Router } from "express";
@@ -17,5 +18,6 @@ homeRouter.post("/register", validateUser(), registerUser);
 homeRouter.get("/login", getLoginPage);
 homeRouter.post("/login", validateUser(), loginUser);
 homeRouter.get("/logout", logoutUser);
+homeRouter.get("/profile", getProfile);
 
 export default homeRouter;

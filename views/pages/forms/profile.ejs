@@ -1,0 +1,62 @@
+<%-include("../../partials/head") %>
+<form action="/profile" method="post" class="auth-form">
+  <h2>Profile</h2>
+  <div class="form-group">
+    <label for="first_name">
+      First name
+      <span>*</span>
+    </label>
+
+    <input
+      type="text"
+      id="firstName"
+      name="firstName"
+      value="<%= user.first_name %>"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="last_name">
+      Last name
+      <span>*</span>
+    </label>
+
+    <input
+      type="text"
+      id="lastName"
+      name="lastName"
+      value="<%= user.last_name %>"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="email">
+      Email
+      <span>*</span>
+    </label>
+
+    <input
+      type="email"
+      id="email"
+      name="email"
+      value="<%= user.email %>"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <a href="/change_password" class="password-link"> Change password </a>
+  </div>
+
+  <div class="info-box">
+    <%-include("../../partials/errors") %>
+    <small class="message"><%=locals.message%></small>
+  </div>
+
+  <div class="form-actions">
+    <a href="/" class="btn go-back">Go back</a>
+    <button type="submit" class="btn primary">Save changes</button>
+  </div>
+</form>
