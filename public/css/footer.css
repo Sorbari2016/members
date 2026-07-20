@@ -1,0 +1,14 @@
+/* FOOTER RULES */
+.main-footer {
+  background-color: #040812;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.main-footer p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
