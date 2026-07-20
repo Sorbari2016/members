@@ -1,0 +1,157 @@
+/* HEADER RULES */
+.main-header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-deep);
+}
+
+/* Auth action box container */
+.auth-btns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth-btns .btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-login {
+  color: var(--text-main);
+}
+
+.btn-login:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-signup {
+  background-color: var(--accent-blue);
+  color: #fff;
+}
+
+.btn-signup:hover {
+  background-color: #2563eb;
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.15);
+  user-select: none;
+}
+
+/* Membership conversion button */
+.join-club-btn {
+  background: linear-gradient(135deg, #ff9f1c, #ffbf0b);
+  color: var(--text-dark);
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(255, 159, 28, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.join-club-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 159, 28, 0.35);
+}
+
+/* Dropdown functionality */
+.dropdown {
+  position: relative;
+}
+
+.profile-btn,
+.btn-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(6, 11, 25, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.45rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.profile-btn:hover,
+.btn-profile:hover {
+  background: rgba(6, 11, 25, 0.8);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.profile-btn img,
+.btn-profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-name {
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.dropdown-arrow {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  transition: var(--transition-smooth);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-deep);
+  list-style: none;
+  padding: 0.5rem;
+  min-width: 160px;
+  display: none;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--accent-cyan);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
+  color: var(--accent-cyan);
+}
