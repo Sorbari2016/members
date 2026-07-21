@@ -24,7 +24,7 @@
               <span class="message-author"><%= message.author %></span>
               
               <% if (isAdmin && message.is_admin) { %>
-                  <img src="/icons/admin-badge.png" alt="admin icon" style="height: 50px; width: 50px;"/>
+                  <img src="/icons/admin-badge.png" alt="admin icon"/>
               <% } else if (isAdmin && message.membership_status === 'member') { %> 
                 <form action="/users/<%=message.user_id %>/make-admin" id="makeAdminForm" method="post">    
                   <label class="admin-toggle">
@@ -42,14 +42,14 @@
       <div class="message-actions">
           <% if (isOwner) { %>
               <a href="/messages/<%= message.message_id %>/edit" class="btn-edit">
-                  <img src="/icons/edit-icon.png" alt="Edit" class="btn-icon" style="height: 50px; width: 50px;"/>
+                  <img src="/icons/edit-icon.png" alt="Edit" class="btn-icon"/>
               </a>
           <% } %>
           
           <% if (isAdmin) { %>
              <form action="/messages/<%= message.message_id %>/delete" method="POST">
                     <button class="btn-icon" type="submit">
-                      <img src="/icons/delete-icon.png" alt="Delete" style="height: 50px; width: 50px;"/>
+                      <img src="/icons/delete-icon.png" alt="Delete"/>
                     </button>
               </form>
           <% } %>
