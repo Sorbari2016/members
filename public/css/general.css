@@ -64,7 +64,7 @@ main > form {
   border-radius: var(--radius-lg);
   padding: 2rem 1.75rem;
   width: 100%;
-  max-width: 520px;
+  max-width: 440px;
   margin: 2rem auto;
 }
 
