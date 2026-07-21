@@ -52,12 +52,22 @@
   user-select: none;
 }
 
+.header-user-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* Membership conversion button */
 .join-club-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 1.25rem;
+  border-radius: 50px;
   background: linear-gradient(135deg, #ff9f1c, #ffbf0b);
   color: var(--text-dark);
-  padding: 0.55rem 1.25rem;
-  border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -154,4 +164,27 @@
 .dropdown:hover .dropdown-arrow {
   transform: rotate(180deg);
   color: var(--accent-cyan);
+}
+
+/* Mobilie responsiveness */
+@media (max-width: 600px) {
+  .main-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .header-user-group {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .profile-name {
+    display: none; /* Hide long names on mobile screens to save room */
+  }
+
+  .join-club-btn {
+    font-size: 0.75rem;
+    padding: 0 0.85rem;
+    height: 38px;
+  }
 }

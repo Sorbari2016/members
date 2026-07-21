@@ -12,6 +12,7 @@
                 </ul>
             </div>
         <%} else if (isLoggedIn) {%>
+        <div class="header-user-group">
             <div class="profile dropdown">
                 <a class="btn btn-profile" role="button">
                     <img src="/icons/default-user-profile.png" alt="profile icon"> 
@@ -26,6 +27,7 @@
                     <span> Become a Member</span>
                 </a>
             </div>
+        </div>
         <% } else { %>
             <div class="split-btns auth-btns">
                 <a href="/login" class="btn btn-login" role="button">Login</a>

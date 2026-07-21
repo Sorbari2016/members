@@ -62,9 +62,9 @@ main > form {
   border: 1px solid rgba(255, 255, 255, 0.04);
   box-shadow: var(--shadow-deep);
   border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.75rem;
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   margin: 2rem auto;
 }
 
@@ -292,4 +292,39 @@ main > form button[type="submit"]:hover {
 ::-webkit-scrollbar-thumb {
   background: var(--bg-surface-hover);
   border-radius: 4px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  main {
+    padding: 1rem 0.75rem;
+  }
+
+  /* Stack double inputs vertically on smaller mobile screens */
+  .double-input {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .auth-form,
+  main > form {
+    padding: 1.5rem 1.25rem;
+    margin: 1rem auto;
+    border-radius: var(--radius-md);
+  }
+
+  .message-card {
+    padding: 1.25rem;
+  }
+
+  .message-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .message-footer {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
 }
