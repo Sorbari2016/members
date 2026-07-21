@@ -1,10 +1,4 @@
-import {
-  insertUser,
-  getUserByUsername,
-  getAllMessages,
-  getUserById,
-  modifyUser,
-} from "../database/queries.js";
+import { users } from "../database/queries.js";
 import { getPassscode } from "../utilities/utility.js";
 import "../authentication/auth.js";
 import { validationResult, matchedData } from "express-validator";
@@ -45,14 +39,13 @@ async function registerUser(req, res) {
 
     // ** using username cause of passport
     const { firstName, lastName, username, password } = matchedData(req);
-    console.log(username);
 
     // Check if user already exists
-    const result = await getUserByUsername(username);
+    const user = await users.getUserByEmail(username);
 
     // ** matching passwords (password & confirm password) handled by validationResult
 
-    if (result.length > 0) {
+    if (user) {
       return res.render("pages/forms/register", {
         message: "User already exists. Try logging in.",
         formData: {},
@@ -63,7 +56,7 @@ async function registerUser(req, res) {
     const hashedPassword = await bcrypt.hash(password, saltRound);
 
     // Add user to database
-    await insertUser(firstName, lastName, username, hashedPassword);
+    await users.insertUser(firstName, lastName, username, hashedPassword);
 
     res.redirect("/");
   } catch (error) {
@@ -127,8 +120,7 @@ async function getProfile(req, res) {
 
   try {
     // get user
-    const user = await getUserById(req.user.id);
-    console.log(user);
+    const user = await users.getUserById(req.user.id);
 
     res.render("pages/forms/profile", { user, title: "Profile Page" });
   } catch (error) {
@@ -166,12 +158,13 @@ async function updateUser(req, res) {
     };
 
     //update user
-    await modifyUser(
+    await users.modifyUser(
       userId,
       updatedData.first_name,
       updatedData.last_name,
       updatedData.email,
     );
+
     res.redirect("/");
   } catch (error) {
     console.error("Database error: ", error);

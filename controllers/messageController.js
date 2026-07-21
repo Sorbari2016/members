@@ -1,16 +1,9 @@
-import {
-  getMessageById,
-  getUserById,
-  insertMessage,
-  updateMessageById,
-  removeMessage,
-} from "../database/queries.js";
+import { messages } from "../database/queries.js";
 import { CustomNotFoundError, errorMessage } from "../errors/error.js";
 import { validationResult, matchedData } from "express-validator";
 
 // Create controller to get new message form
 function getNewMessage(req, res) {
-  console.log(req.user.id);
   res.render("pages/forms/new-message", {
     title: "Create new message",
     message: "",
@@ -21,7 +14,7 @@ function getNewMessage(req, res) {
 async function getEditMessage(req, res) {
   try {
     const messageId = parseInt(req.params["messageId"]);
-    const message = await getMessageById(messageId);
+    const message = await messages.getMessageById(messageId);
 
     if (!message) {
       CustomNotFoundError("Message not found!");
@@ -57,7 +50,7 @@ function createMessage(req, res) {
   // Get id of user auth, stored in session
   const userId = req.user.id;
 
-  insertMessage(messageTitle, messageBody, userId);
+  messages.insertMessage(messageTitle, messageBody, userId);
 
   res.redirect("/");
 }
@@ -81,7 +74,7 @@ async function updateMessage(req, res) {
 
   // Get previous data
   const messageId = parseInt(req.params["messageId"]);
-  const message = await getMessageById(messageId);
+  const message = await messages.getMessageById(messageId);
 
   // store incoming data or previous data
   const updatedData = {
@@ -90,7 +83,7 @@ async function updateMessage(req, res) {
   };
 
   // update Message
-  await updateMessageById(
+  await messages.updateMessageById(
     updatedData.message_title,
     updatedData.message_body,
     messageId,
@@ -103,7 +96,7 @@ async function updateMessage(req, res) {
 async function deleteMessage(req, res) {
   const messageId = parseInt(req.params.messageId);
 
-  await removeMessage(messageId);
+  await messages.removeMessage(messageId);
 
   res.redirect("/");
 }

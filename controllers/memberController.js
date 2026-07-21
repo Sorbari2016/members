@@ -1,7 +1,4 @@
-import {
-  updateMemberShipStatus,
-  updateAdminStatus,
-} from "../database/queries.js";
+import { users } from "../database/queries.js";
 import { validationResult, matchedData } from "express-validator";
 import { getPassscode } from "../utilities/utility.js";
 
@@ -37,9 +34,9 @@ async function registerMember(req, res) {
     });
   }
 
-  // update user's status
+  // update user's member status
   const userId = parseInt(req.params["id"]);
-  await updateMemberShipStatus(userId);
+  users.updateMemberShipStatus(userId);
 
   res.redirect("/");
 }
@@ -49,7 +46,7 @@ async function makeAdmin(req, res) {
   const userId = parseInt(req.params.id);
 
   if (shouldBeAdmin === "on") {
-    await updateAdminStatus(userId);
+    await users.updateAdminStatus(userId);
   }
 
   res.redirect("/");
