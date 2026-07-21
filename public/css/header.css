@@ -1,4 +1,5 @@
 /* HEADER RULES */
+/* Top navbar container */
 .main-header {
   background-color: var(--bg-surface);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
@@ -6,11 +7,42 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1.5rem;
+  gap: 1rem;
   position: sticky;
   top: 0;
   z-index: 100;
   box-shadow: var(--shadow-deep);
+}
+
+/* Flex wrapper: Keeps Profile on LEFT and Join Button on RIGHT */
+.header-user-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.join-club-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 1.25rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ff9f1c, #ffbf0b);
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(255, 159, 28, 0.2);
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.join-club-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 159, 28, 0.35);
 }
 
 /* Auth action box container */
@@ -130,9 +162,10 @@
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: 100%;
   right: 0;
   background: var(--bg-surface);
+  margin-top: 0.25rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-deep);
