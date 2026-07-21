@@ -116,7 +116,7 @@
 }
 
 .btn-edit,
-.btn-icon {
+.btn-delete {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -132,12 +132,12 @@
 .btn-edit:hover {
   background: rgba(58, 134, 255, 0.1);
 }
-.btn-icon:hover {
+.btn-delete:hover {
   background: rgba(255, 0, 85, 0.1);
 }
 
 .btn-edit img,
-.btn-icon img {
+.btn-delete img {
   width: 20px !important;
   height: 20px !important;
   object-fit: contain;
@@ -151,7 +151,7 @@
 }
 
 /* MESSAGE FORMS */
-form[action^="/messages"] {
+.message-editor-form {
   background: var(--bg-surface);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--shadow-deep);
@@ -162,7 +162,7 @@ form[action^="/messages"] {
   margin: 2.5rem auto;
 }
 
-form[action^="/messages"] h1 {
+.message-editor-form h1 {
   font-size: 1.6rem;
   font-weight: 700;
   color: #fff;
@@ -172,25 +172,21 @@ form[action^="/messages"] h1 {
   padding-bottom: 0.75rem;
 }
 
-form[action^="/messages"] #m-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 1rem 1.25rem;
-  background-color: rgba(6, 11, 25, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-form[action^="/messages"] #m-body {
-  min-height: 200px;
+.message-editor-form #m-title,
+.message-editor-form #m-body {
   font-size: 1rem;
   line-height: 1.6;
   padding: 1rem 1.25rem;
   background-color: rgba(6, 11, 25, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.message-editor-form #m-body {
+  min-height: 200px;
   resize: vertical;
 }
 
-form[action^="/messages"] .form-actions {
+.message-editor-form .form-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -198,7 +194,7 @@ form[action^="/messages"] .form-actions {
   margin-top: 1.5rem;
 }
 
-form[action^="/messages"] button[type="submit"] {
+.message-editor-form button[type="submit"] {
   background: var(--accent-blue);
   color: #fff;
   border: none;
@@ -210,21 +206,17 @@ form[action^="/messages"] button[type="submit"] {
   transition: var(--transition-smooth);
 }
 
-form[action^="/messages"] button[type="submit"]:hover {
+.message-editor-form button[type="submit"]:hover {
   background: #2563eb;
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 
-form[action^="/messages"] .btn-cancel {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: var(--radius-md);
-  transition: var(--transition-smooth);
-}
-
-form[action^="/messages"] .btn-cancel:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.05);
+/* Inline Delete Form Reset (Keeps delete button clean) */
+.message-actions form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
 }

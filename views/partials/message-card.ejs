@@ -48,8 +48,8 @@
           
           <% if (isAdmin) { %>
              <form action="/messages/<%= message.message_id %>/delete" method="POST">
-                    <button class="btn-icon" type="submit">
-                      <img src="/icons/delete-icon.png" alt="Delete"/>
+                    <button class="btn-delete" type="submit">
+                      <img src="/icons/delete-icon.png" class="btn-icon" alt="Delete button"/>
                     </button>
               </form>
           <% } %>
