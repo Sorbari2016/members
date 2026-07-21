@@ -1,37 +1,46 @@
-// Get the checkboxes
-const checkboxes = [...document.querySelectorAll("input[type ='checkbox']")];
+// Create method to handle events
+const handleEvent = (elements, type, soundUrl, message) => {
+  const group = document.querySelectorAll(elements);
 
-// Add event listener to the checkboxes
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", async (e) => {
-    e.preventDefault();
+  group.forEach((element) => {
+    element.addEventListener(type, (e) => {
+      // create audio object
+      const audio = new Audio(soundUrl);
+      console.log(audio);
 
-    // we will add a sound here...
+      // Attempt to play audio
+      audio.play().catch((err) => console.log("Audio play blocked:", err));
 
-    // send an alert for confirmation
-    const confirmed = confirm("Make this user an Admin?");
+      // Small timeout to allow the audio to start playing before blocking UI
+      setTimeout(() => {
+        const confirmed = confirm(message);
 
-    if (confirmed) {
-      const makeAdminForm = checkbox.closest("#makeAdminForm");
-      makeAdminForm.submit();
-    }
+        if (confirmed) {
+          const form =
+            element.tagName === "FORM" ? element : element.closest("form");
+
+          if (form) form.submit();
+        } else if (type === "change" && element.type === "checkbox") {
+          // Revert checkbox state if user cancels confirmation
+          element.checked = !element.checked;
+        }
+      }, 250);
+    });
   });
-});
+};
 
-// Add event listeners to the delete forms
-const deleteForms = [...document.querySelectorAll('form[action^="/messages"]')];
+// Handle checkbox click
+handleEvent(
+  "input[type='checkbox']",
+  "change",
+  "/sounds/add-admin.mp3",
+  "Make this user an Admin?",
+);
 
-deleteForms.forEach((form) => {
-  form.addEventListener("submit", (e) => {
-    // prevent form from submiting
-    e.preventDefault();
-
-    // Create a confirmation alert
-    const confirmed = confirm("Are you sure you want to delete this message?");
-
-    // Submit form manually, if confirmed
-    if (confirmed) {
-      form.submit();
-    }
-  });
-});
+// Handle delete button
+handleEvent(
+  'form[action^="/messages"]',
+  "submit",
+  "/sounds/delete-message.mp3",
+  "Are you sure you want to delete this message?",
+);
